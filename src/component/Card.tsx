@@ -26,7 +26,7 @@ export const Card = ({
 	template: CardTemplate;
 	data: Record<string, string>;
 }) => {
-	const border = template.includeBorder ? "solid black 1mm" : "";
+	const border = template.includeBorder ? "solid black 2mm" : "";
 	const borderRadius = mm(3.5);
 	return (
 		<div
@@ -35,7 +35,7 @@ export const Card = ({
 				width: umm(width),
 				height: umm(height),
 				border,
-				borderRadius,
+				// borderRadius,
 			}}
 		>
 			{template.objects.map((o, i) => (

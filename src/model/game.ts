@@ -1,5 +1,5 @@
 
-export type Board = (object | CardDeck)[]
+export type Board = ({ type: Exclude<string, 'cardDeck'> } | CardDeck)[]
 
 export interface LocatedXY {
 	x: number,
@@ -57,4 +57,8 @@ export interface CardDeck extends Partial<LocatedXYZ> {
 	cardWidth: number,
 	cardHeight: number,
 	// dragging?: null
+}
+
+export function isCardDeck(a: Board[number]): a is CardDeck {
+	return a.type === 'cardDeck'
 }

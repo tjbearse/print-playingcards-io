@@ -12,8 +12,62 @@ code {
     monospace;
 }
 
+.wrapper {
+  display: grid;
+  grid-template-areas: "side content";
+  min-height: 100vh;
+}
+.wrapper {
+  grid-template-columns: 1fr 3fr;
+}
+
+.sidebar {
+  grid-area: side;
+  background-color: aliceblue;
+  padding: 8px;
+  border-right: solid 3px lightblue;
+}
+
+.mt2 {
+  margin: 8px 0;
+}
+
+.content {
+  grid-area: content
+}
+
+.container {
+  padding: 8px
+}
+.sh {
+  font-size: 1.25rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.link {
+  font-size: 1em;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.section {
+  margin-top: 4px;
+  margin-bottom: 24px;
+}
+
 @media print {
   .no-print {
     display: none;
+  }
+  .container {
+    padding: 0;
+  }
+  .wrapper {
+    display: block;
   }
 }
