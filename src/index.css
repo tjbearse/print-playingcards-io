@@ -33,16 +33,16 @@ code {
 }
 
 .content {
-  grid-area: content
+  grid-area: content;
 }
 
 .container {
-  padding: 8px
+  padding: 8px;
 }
 .sh {
   font-size: 1.25rem;
-  margin-top: .5rem;
-  margin-bottom: .5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .link {
@@ -60,6 +60,11 @@ code {
   margin-bottom: 24px;
 }
 
+.page {
+  border-bottom: dashed 1px black;
+  padding: 8px;
+}
+
 @media print {
   .no-print {
     display: none;
@@ -69,5 +74,11 @@ code {
   }
   .wrapper {
     display: block;
+  }
+  .page {
+    page-break-after: always;
+    margin: 0;
+    padding: 0;
+    border: none;
   }
 }

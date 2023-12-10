@@ -7,7 +7,7 @@ export const gameSlice = createSlice({
 	initialState: {
 		gameBoard: null as Game | null,
 		selectedDeck: null as string | null,
-		cardsPerPage: 6,
+		cardsPerPage: 8,
 	},
 	reducers: {
 		setGame: (state, action: PayloadAction<Game | null>) => {
@@ -18,6 +18,9 @@ export const gameSlice = createSlice({
 			if (state.gameBoard?.widgets.find(e => isCardDeck(e) && e.id === action.payload)) {
 				state.selectedDeck = action.payload
 			}
+		},
+		setCardsPerPage: (state, action: PayloadAction<number>) => {
+			state.cardsPerPage = Math.max(0, action.payload)
 		}
 
 	}

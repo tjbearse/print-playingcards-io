@@ -1,4 +1,4 @@
-import { Deck } from "./Card";
+import { Deck, PagedDeck } from "./Card";
 import { CardDeck, isCardDeck } from "../model/game";
 import { GameUpload } from "./Upload";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,7 @@ function App() {
 const Sidebar = () => {
   const dispatch = useDispatch()
   const cardDecks = useSelector((state: RootState) => state.game.gameBoard?.widgets.filter(isCardDeck).map(d => d.id))
+  const cardsPerPage = useSelector((state: RootState) => state.game.cardsPerPage)
 
   return <div className="no-print sidebar" >
     <div className="section">
@@ -48,6 +49,10 @@ const Sidebar = () => {
             ))}
           </select>
         </div>
+        <div>
+          <label>Cards per page: </label>
+          <input type="number" onChange={e => dispatch(gameSlice.actions.setCardsPerPage(+e.target.value))} value={cardsPerPage} />
+        </div>
       </div>
       <div className="section">
         <div className="sh"><button className="link" onClick={() => window.print()}>Print your cards</button></div>
@@ -60,9 +65,10 @@ const Sidebar = () => {
 
 const Game = () => {
   const activeDeck = useSelector((state: RootState) => state.game.selectedDeck && (state.game.gameBoard?.widgets.find(e => isCardDeck(e) && e?.id === state.game.selectedDeck) as CardDeck || null))
+  const cardsPerPage = useSelector((state: RootState) => state.game.cardsPerPage)
   return (
     <>
-      {activeDeck && <Deck deck={activeDeck} />}
+      {activeDeck && <PagedDeck deck={activeDeck} perPage={cardsPerPage} />}
     </>
   );
 }

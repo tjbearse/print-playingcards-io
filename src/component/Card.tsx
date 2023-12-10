@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import type { CardTemplate, CardObject, CardDeck } from "../model/game";
 import { RootState } from "../store";
+import { PrintLayout } from "./PrintLayout";
 
 function u2mm(n: number): number {
 	// TODO maybe user configurable?
-	return n / 1.7265512266;
+	return n / 1.8;
 	// standard deck in pcio is 103x160
 	// standard deck in irl (mm) is 63x88
 	//
@@ -83,10 +84,6 @@ const useCardData = (object: CardObject, data: Record<string, any>) => {
 };
 
 export const Deck = ({ deck }: { deck: CardDeck }) => (
-	// TODO backs
-	// TODO quantities
-	// TODO variants of layouts
-	// TODO page size and print marks
 	<div style={{ display: 'flex', flexWrap: 'wrap', flex: 'flexrow' }}>
 		{Object.entries(deck.cardTypes).map(([k, v]) => <Card
 			key={k}
@@ -97,6 +94,22 @@ export const Deck = ({ deck }: { deck: CardDeck }) => (
 		)}
 	</div>
 )
+export const PagedDeck = ({ deck, perPage }: { deck: CardDeck, perPage: number }) => {
+	const items = Object.entries(deck.cardTypes).map(([k, v]) => <Card
+		key={k}
+		width={deck.cardWidth}
+		height={deck.cardHeight}
+		template={deck.faceTemplate}
+		data={v} />
+	)
+	return (
+		// TODO backs
+		// TODO quantities
+		// TODO variants of layouts
+		// TODO page size and print marks
+		<PrintLayout items={items} perPage={perPage} />
+	)
+}
 
 function CardImage({ asset, style }: { asset: string; style: React.CSSProperties; }) {
 	const images = useSelector((root: RootState) => root.game?.gameBoard?.images) || {}
