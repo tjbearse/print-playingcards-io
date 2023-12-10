@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import type { CardTemplate, CardObject, CardDeck } from "../model/game";
+import { RootState } from "../store";
 
 function u2mm(n: number): number {
 	// TODO maybe user configurable?
@@ -67,7 +69,7 @@ const CardObject = ({
 	if (object.type === "text") {
 		return <div style={{ ...style, color: object.color ?? 'black', fontSize: object.fontSize }}>{d}</div>;
 	} if (d) {
-		return <img src={d} style={{ ...style, backgroundColor: object.color, height: umm(object.h) }} alt="" />;
+		return <CardImage asset={d} style={{ ...style, backgroundColor: object.color, height: umm(object.h) }} />;
 	} else {
 		return <div style={{ ...style, backgroundColor: object.color, height: umm(object.h) }} />;
 	}
@@ -95,3 +97,11 @@ export const Deck = ({ deck }: { deck: CardDeck }) => (
 		)}
 	</div>
 )
+
+function CardImage({ asset, style }: { asset: string; style: React.CSSProperties; }) {
+	const images = useSelector((root: RootState) => root.game?.gameBoard?.images) || {}
+	if (asset in images) {
+		asset = images[asset]
+	}
+	return <img src={asset} style={style} alt="" />;
+}

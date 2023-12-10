@@ -1,21 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { Board, isCardDeck } from './model/game'
+import { Game, Widgets, isCardDeck } from './model/game'
 
 export const gameSlice = createSlice({
 	name: 'game',
 	initialState: {
-		board: null as Board | null,
+		gameBoard: null as Game | null,
 		selectedDeck: null as string | null,
 		cardsPerPage: 6,
 	},
 	reducers: {
-		setBoard: (state, action: PayloadAction<Board | null>) => {
-			state.board = action.payload
-			state.selectedDeck = state.board?.find(isCardDeck)?.id || null
+		setGame: (state, action: PayloadAction<Game | null>) => {
+			state.gameBoard = action.payload
+			state.selectedDeck = state.gameBoard?.widgets.find(isCardDeck)?.id || null
 		},
 		selectDeck: (state, action: PayloadAction<string>) => {
-			if (state.board?.find(e => isCardDeck(e) && e.id === action.payload)) {
+			if (state.gameBoard?.widgets.find(e => isCardDeck(e) && e.id === action.payload)) {
 				state.selectedDeck = action.payload
 			}
 		}

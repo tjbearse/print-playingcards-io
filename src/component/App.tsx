@@ -17,7 +17,7 @@ function App() {
 
 const Sidebar = () => {
   const dispatch = useDispatch()
-  const cardDecks = useSelector((state: RootState) => state.game.board?.filter(isCardDeck).map(d => d.id))
+  const cardDecks = useSelector((state: RootState) => state.game.gameBoard?.widgets.filter(isCardDeck).map(d => d.id))
 
   return <div className="no-print sidebar" >
     <div className="section">
@@ -34,7 +34,7 @@ const Sidebar = () => {
     <div className="section">
       <div className="sh">Upload your board file here</div>
       <div className="">
-        <GameUpload setGame={(g) => dispatch(gameSlice.actions.setBoard(g))} />
+        <GameUpload setGame={(g) => dispatch(gameSlice.actions.setGame(g))} />
       </div>
     </div>
     {cardDecks && <>
@@ -59,7 +59,7 @@ const Sidebar = () => {
 
 
 const Game = () => {
-  const activeDeck = useSelector((state: RootState) => state.game.selectedDeck && (state.game.board?.find(e => isCardDeck(e) && e?.id === state.game.selectedDeck) as CardDeck || null))
+  const activeDeck = useSelector((state: RootState) => state.game.selectedDeck && (state.game.gameBoard?.widgets.find(e => isCardDeck(e) && e?.id === state.game.selectedDeck) as CardDeck || null))
   return (
     <>
       {activeDeck && <Deck deck={activeDeck} />}
