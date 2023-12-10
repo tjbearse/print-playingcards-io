@@ -94,13 +94,13 @@ export const Deck = ({ deck }: { deck: CardDeck }) => (
 		)}
 	</div>
 )
-export const PagedDeck = ({ deck, perPage }: { deck: CardDeck, perPage: number }) => {
-	const items = Object.entries(deck.cardTypes).map(([k, v]) => <Card
-		key={k}
+export const PagedDeck = ({ deck, perPage, cardCounts }: { deck: CardDeck, cardCounts: Record<string, number>, perPage: number }) => {
+	const items = getDeckCards(deck, cardCounts).map(({ cType, data }) => <Card
+		key={cType}
 		width={deck.cardWidth}
 		height={deck.cardHeight}
 		template={deck.faceTemplate}
-		data={v} />
+		data={data} />
 	)
 	return (
 		// TODO backs
@@ -110,6 +110,11 @@ export const PagedDeck = ({ deck, perPage }: { deck: CardDeck, perPage: number }
 		<PrintLayout items={items} perPage={perPage} />
 	)
 }
+
+const getDeckCards = (deck: CardDeck, cardCounts: Record<string, number>) => Object.entries(deck.cardTypes).flatMap(([cType, data]) => {
+	const n = cardCounts[cType] || 0;
+	return new Array(n).fill({ cType, data })
+})
 
 function CardImage({ asset, style }: { asset: string; style: React.CSSProperties; }) {
 	const images = useSelector((root: RootState) => root.game?.gameBoard?.images) || {}

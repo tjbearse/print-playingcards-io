@@ -1,8 +1,18 @@
 
-export type Widgets = ({ type: Exclude<string, 'cardDeck'> } | CardDeck)[]
+export type Widgets = ({ type: Exclude<string, 'cardDeck' | 'card'> } | Card | CardDeck)[]
 export interface Game {
 	widgets: Widgets,
 	images: Record<string, string>
+}
+
+export interface Card {
+	id: string,
+	type: "card",
+	deck: string,
+	cardType: string,
+}
+export function isCard(widget: Widgets[number]): widget is Card {
+	return widget.type === "card"
 }
 
 export interface LocatedXY {

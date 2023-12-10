@@ -1,5 +1,5 @@
 import { Deck, PagedDeck } from "./Card";
-import { CardDeck, isCardDeck } from "../model/game";
+import { Card, CardDeck, isCard, isCardDeck } from "../model/game";
 import { GameUpload } from "./Upload";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
@@ -64,13 +64,23 @@ const Sidebar = () => {
 
 
 const Game = () => {
-  const activeDeck = useSelector((state: RootState) => state.game.selectedDeck && (state.game.gameBoard?.widgets.find(e => isCardDeck(e) && e?.id === state.game.selectedDeck) as CardDeck || null))
+  const activeDeck = useSelector((state: RootState) => (state.game.selectedDeck && state.game.gameBoard?.widgets.find((e): e is CardDeck => isCardDeck(e) && e?.id === state.game.selectedDeck) as CardDeck) || null)
   const cardsPerPage = useSelector((state: RootState) => state.game.cardsPerPage)
+  const cardCounts = useSelector(selectCardCounts(activeDeck))
   return (
     <>
-      {activeDeck && <PagedDeck deck={activeDeck} perPage={cardsPerPage} />}
+      {activeDeck && <PagedDeck deck={activeDeck} cardCounts={cardCounts} perPage={cardsPerPage} />}
     </>
   );
+}
+
+const selectCardCounts = (activeDeck: CardDeck | null) => (state: RootState): Record<string, number> => {
+  if (!activeDeck) return {}
+
+  return state.game.gameBoard?.widgets.filter((e): e is Card => isCard(e) && e.deck === activeDeck.id).reduce((counts, card: Card) => {
+    counts[card.cardType] = (counts[card.cardType] || 0) + 1
+    return counts;
+  }, {} as Record<string, number>) || {}
 }
 
 export default App;
