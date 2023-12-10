@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/print-playingcards-io/static/css/main.9fe25ae7.css",
-    "main.js": "/print-playingcards-io/static/js/main.e9ec8f22.js",
+    "main.css": "/print-playingcards-io/static/css/main.02a51d8e.css",
+    "main.js": "/print-playingcards-io/static/js/main.ab90f3b8.js",
     "static/js/787.7d0ebac0.chunk.js": "/print-playingcards-io/static/js/787.7d0ebac0.chunk.js",
     "index.html": "/print-playingcards-io/index.html",
-    "main.9fe25ae7.css.map": "/print-playingcards-io/static/css/main.9fe25ae7.css.map",
-    "main.e9ec8f22.js.map": "/print-playingcards-io/static/js/main.e9ec8f22.js.map",
+    "main.02a51d8e.css.map": "/print-playingcards-io/static/css/main.02a51d8e.css.map",
+    "main.ab90f3b8.js.map": "/print-playingcards-io/static/js/main.ab90f3b8.js.map",
     "787.7d0ebac0.chunk.js.map": "/print-playingcards-io/static/js/787.7d0ebac0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9fe25ae7.css",
-    "static/js/main.e9ec8f22.js"
+    "static/css/main.02a51d8e.css",
+    "static/js/main.ab90f3b8.js"
   ]
 }
