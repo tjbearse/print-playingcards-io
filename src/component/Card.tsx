@@ -42,7 +42,7 @@ export const Card = ({
 			}}
 		>
 			{template.objects.map((o, i) => (
-				<CardObject key={o.value} object={o} data={data} layer={i} />
+				<CardObject key={`${o.value} ${i}`} object={o} data={data} layer={i} />
 			))}
 		</div>
 	);
@@ -95,25 +95,28 @@ export const Deck = ({ deck }: { deck: CardDeck }) => (
 	</div>
 )
 export const PagedDeck = ({ deck, perPage, cardCounts }: { deck: CardDeck, cardCounts: Record<string, number>, perPage: number }) => {
-	const items = getDeckCards(deck, cardCounts).map(({ cType, data }) => <Card
-		key={cType}
-		width={deck.cardWidth}
-		height={deck.cardHeight}
-		template={deck.faceTemplate}
-		data={data} />
-	)
+	const items = getDeckCards(deck, cardCounts);
 	return (
 		// TODO backs
 		// TODO quantities
 		// TODO variants of layouts
 		// TODO page size and print marks
-		<PrintLayout items={items} perPage={perPage} />
+		<PrintLayout items={items} perPage={perPage} >
+			{
+				({ cType, data, copy }, i) => <Card
+					key={`${cType} ${copy} ${i}`}
+					width={deck.cardWidth}
+					height={deck.cardHeight}
+					template={deck.faceTemplate}
+					data={data} />
+			}
+		</PrintLayout >
 	)
 }
 
 const getDeckCards = (deck: CardDeck, cardCounts: Record<string, number>) => Object.entries(deck.cardTypes).flatMap(([cType, data]) => {
 	const n = cardCounts[cType] || 0;
-	return new Array(n).fill({ cType, data })
+	return new Array(n).fill({ cType, data }).map((d, i) => ({ ...d, copy: i + 1 }))
 })
 
 function CardImage({ asset, style }: { asset: string; style: React.CSSProperties; }) {

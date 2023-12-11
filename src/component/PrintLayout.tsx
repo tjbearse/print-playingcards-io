@@ -1,6 +1,6 @@
 
 
-export const PrintLayout = ({ items, perPage }: { perPage: number, items: React.ReactNode[] }) => {
+export const PrintLayout = <T,>({ items, perPage, children }: { perPage: number, items: T[], children: (t: T, i: number) => React.ReactNode }) => {
 	const nPages = Math.ceil(items.length / perPage)
 
 	const pages = Array.from({ length: nPages }).map((_, i) => {
@@ -13,7 +13,7 @@ export const PrintLayout = ({ items, perPage }: { perPage: number, items: React.
 				pages.map((p, i) => (
 					<div key={i} className="page" style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
 						{
-							p
+							p.map((e, i) => children(e, i))
 						}
 					</div>
 				))
