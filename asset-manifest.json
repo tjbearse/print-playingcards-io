@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/print-playingcards-io/static/css/main.02a51d8e.css",
-    "main.js": "/print-playingcards-io/static/js/main.ab90f3b8.js",
+    "main.js": "/print-playingcards-io/static/js/main.fe3af7da.js",
     "static/js/787.7d0ebac0.chunk.js": "/print-playingcards-io/static/js/787.7d0ebac0.chunk.js",
     "index.html": "/print-playingcards-io/index.html",
     "main.02a51d8e.css.map": "/print-playingcards-io/static/css/main.02a51d8e.css.map",
-    "main.ab90f3b8.js.map": "/print-playingcards-io/static/js/main.ab90f3b8.js.map",
+    "main.fe3af7da.js.map": "/print-playingcards-io/static/js/main.fe3af7da.js.map",
     "787.7d0ebac0.chunk.js.map": "/print-playingcards-io/static/js/787.7d0ebac0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.02a51d8e.css",
-    "static/js/main.ab90f3b8.js"
+    "static/js/main.fe3af7da.js"
   ]
 }
